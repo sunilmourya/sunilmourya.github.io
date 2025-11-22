@@ -1,0 +1,49 @@
+---
+layout: default
+title: Home
+---
+
+<section class="hero">
+    <h1>Hi, I'm <span class="highlight">Your Name</span></h1>
+    <p class="lead">Rust developer and running enthusiast documenting my journey in code and miles.</p>
+
+    <div class="cta-buttons">
+        <a href="/blog" class="btn btn-primary">Read Blog</a>
+        <a href="/about" class="btn btn-secondary">About Me</a>
+    </div>
+</section>
+
+<section class="recent-posts">
+    <h2>Latest Posts</h2>
+    <div class="posts-grid">
+        {% for post in site.posts limit:3 %}
+        <article class="post-card">
+            <span class="category">{{ post.category }}</span>
+            <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+            <p>{{ post.excerpt }}</p>
+            <div class="meta">
+                <span>{{ post.date | date: "%b %d, %Y" }}</span>
+                <span>{{ post.read_time }} min read</span>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="stats">
+    <h2>My Journey</h2>
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h3>🦀 Rust Projects</h3>
+            <p class="number">12+</p>
+        </div>
+        <div class="stat-card">
+            <h3>🏃 Miles Run</h3>
+            <p class="number">450+</p>
+        </div>
+        <div class="stat-card">
+            <h3>📝 Blog Posts</h3>
+            <p class="number">24+</p>
+        </div>
+    </div>
+</section>

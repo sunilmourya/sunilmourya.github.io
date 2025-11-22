@@ -1,0 +1,31 @@
+<footer class="site-footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h3>{{ site.title }}</h3>
+            <p>{{ site.description }}</p>
+        </div>
+
+        <div class="footer-section">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="/blog">Blog</a></li>
+                <li><a href="/rust">Rust Journey</a></li>
+                <li><a href="/running">Running Log</a></li>
+                <li><a href="/rss.xml">RSS Feed</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-section">
+            <h3>Connect</h3>
+            <div class="social-links">
+                <a href="https://github.com/{{ site.author.github }}" target="_blank">GitHub</a>
+                <a href="https://linkedin.com/in/{{ site.author.linkedin }}" target="_blank">LinkedIn</a>
+                <a href="mailto:{{ site.author.email }}">Email</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>&copy; {{ 'now' | date: "%Y" }} {{ site.title }}. Built with Jekyll & GitHub Pages</p>
+    </div>
+</footer>

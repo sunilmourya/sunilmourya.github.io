@@ -1,0 +1,43 @@
+---
+layout: default
+---
+
+<article class="blog-post">
+    <header class="post-header">
+        <span class="category">{{ page.category }}</span>
+        <h1>{{ page.title }}</h1>
+        <div class="post-meta">
+            <time datetime="{{ page.date | date_to_xmlschema }}">
+                {{ page.date | date: "%B %d, %Y" }}
+            </time>
+            <span>•</span>
+            <span>{{ page.read_time }} min read</span>
+        </div>
+        <div class="tags">
+            {% for tag in page.tags %}
+            <span class="tag">#{{ tag }}</span>
+            {% endfor %}
+        </div>
+    </header>
+
+    <div class="post-content">
+        {{ content }}
+    </div>
+
+    <footer class="post-footer">
+        <div class="share">
+            <p>Share this post:</p>
+            <a href="https://twitter.com/intent/tweet?url={{ site.url }}{{ page.url }}&text={{ page.title }}" target="_blank">Twitter</a>
+            <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ site.url }}{{ page.url }}" target="_blank">LinkedIn</a>
+        </div>
+    </footer>
+</article>
+
+<nav class="post-navigation">
+    {% if page.previous %}
+    <a href="{{ page.previous.url }}" class="prev">← {{ page.previous.title }}</a>
+    {% endif %}
+    {% if page.next %}
+    <a href="{{ page.next.url }}" class="next">{{ page.next.title }} →</a>
+    {% endif %}
+</nav>
