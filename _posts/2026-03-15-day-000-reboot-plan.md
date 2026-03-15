@@ -3,7 +3,7 @@ layout: post
 title: "Day 000: The Reboot Plan"
 date: 2026-03-15
 category: Life
-tags: [100days, meta, planning, rust, running]
+tags: [100days, blog, running]
 day: 0
 read_time: 5
 excerpt: "Before Day 1 begins, I need to write down why I'm doing this and what the rules are. No vague goals — concrete commitments."
