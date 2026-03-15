@@ -1,23 +1,48 @@
 title: Sunil Mourya
-description: Rust developer & runner sharing my journey
+description: Systems developer. 100 days of Rust, C++, and running. Crash to highs.
 url: https://sunilmourya.github.io
 baseurl: ""
+
 author:
   name: Sunil Mourya
   email: sunil_mourya@outlook.com
   github: sunilmourya
   linkedin: sunilmourya
 
-# Blog settings
+# Blog
 permalink: /blog/:year/:month/:day/:title/
 paginate: 10
 paginate_path: "/blog/page:num/"
 
-# Build settings
+# Build
 markdown: kramdown
-theme: minima
+kramdown:
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: 'highlight'
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-paginate
 
 # Collections
 collections:
   posts:
     output: true
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+
+# Exclude from build
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules

@@ -3,47 +3,137 @@ layout: default
 title: Home
 ---
 
-<section class="hero">
-    <h1>Hi, I'm <span class="highlight">Your Name</span></h1>
-    <p class="lead">Rust developer and running enthusiast documenting my journey in code and miles.</p>
+<!-- HERO -->
+<div class="container">
+    <section class="hero">
+        <p class="hero-eyebrow">// 100 days · starting 16 mar 2026</p>
+        <h1>Rust. C++. Miles.<br><em>Crash to highs.</em></h1>
+        <p class="hero-sub">
+            Senior systems developer. Documenting 100 days of deliberate practice —
+            Rust ownership, C++ depth, and putting in the kilometers.
+        </p>
+        <div class="hero-cta">
+            <a href="/100days" class="btn btn-primary">→ Follow the 100 days</a>
+            <a href="/about" class="btn btn-ghost">About Sunil</a>
+        </div>
+    </section>
+</div>
 
-    <div class="cta-buttons">
-        <a href="/blog" class="btn btn-primary">Read Blog</a>
-        <a href="/about" class="btn btn-secondary">About Me</a>
-    </div>
-</section>
+<!-- 100 DAYS PROGRESS STRIP -->
+<div class="days-strip">
+    <div class="days-strip-inner">
+        <div>
+            <div class="days-big" id="dayCount">1</div>
+            <div class="days-label">of 100 days</div>
+        </div>
 
-<section class="recent-posts">
-    <h2>Latest Posts</h2>
-    <div class="posts-grid">
-        {% for post in site.posts limit:3 %}
-        <article class="post-card">
-            <span class="category">{{ post.category }}</span>
-            <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
-            <p>{{ post.excerpt }}</p>
-            <div class="meta">
-                <span>{{ post.date | date: "%b %d, %Y" }}</span>
-                <span>{{ post.read_time }} min read</span>
+        <div class="days-progress-track">
+            <div class="days-progress-meta">
+                <span>16 Mar 2026</span>
+                <span id="progressPct">1%</span>
+                <span>23 Jun 2026</span>
             </div>
-        </article>
-        {% endfor %}
-    </div>
-</section>
+            <div class="days-bar-bg">
+                <div class="days-bar-fill" id="progressBar" style="width: 1%"></div>
+            </div>
+        </div>
 
-<section class="stats">
-    <h2>My Journey</h2>
-    <div class="stats-grid">
-        <div class="stat-card">
-            <h3>🦀 Rust Projects</h3>
-            <p class="number">12+</p>
-        </div>
-        <div class="stat-card">
-            <h3>🏃 Miles Run</h3>
-            <p class="number">450+</p>
-        </div>
-        <div class="stat-card">
-            <h3>📝 Blog Posts</h3>
-            <p class="number">24+</p>
+        <div class="stat-pills">
+            <div class="stat-pill">
+                <span class="stat-pill-num rust" id="rustCount">0</span>
+                <span class="stat-pill-label">Rust hrs</span>
+            </div>
+            <div class="stat-pill">
+                <span class="stat-pill-num blue" id="cppCount">0</span>
+                <span class="stat-pill-label">C++ hrs</span>
+            </div>
+            <div class="stat-pill">
+                <span class="stat-pill-num green" id="kmCount">0</span>
+                <span class="stat-pill-label">km run</span>
+            </div>
         </div>
     </div>
-</section>
+</div>
+
+<!-- CONTENT GRID -->
+<div class="container--wide">
+    <div class="home-sections">
+
+        <!-- Recent Log Entries -->
+        <div>
+            <div class="section-head">
+                <h2>Recent Log</h2>
+                <span class="section-head-tag">all posts</span>
+                <a href="/blog" class="section-link">all entries →</a>
+            </div>
+            <div class="post-list">
+                {% for post in site.posts limit:6 %}
+                <div class="post-item">
+                    <div class="post-item-date">{{ post.date | date: "%d %b" }}</div>
+                    <div class="post-item-body">
+                        <div>
+                            <span class="post-item-tag tag-{{ post.category | downcase | replace: '+', 'p' | replace: ' ', '' }}">{{ post.category }}</span>
+                            {% if post.day %}<span class="post-item-tag tag-100days">Day {{ post.day }}</span>{% endif %}
+                        </div>
+                        <a href="{{ post.url }}" class="post-item-title">{{ post.title }}</a>
+                        {% if post.excerpt %}<p class="post-item-excerpt">{{ post.excerpt | truncatewords: 18 }}</p>{% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Right Column -->
+        <div>
+
+            <!-- Running Log -->
+            <div class="section-head">
+                <h2>Running Log</h2>
+                <span class="section-head-tag">recent</span>
+                <a href="/running" class="section-link">full log →</a>
+            </div>
+            <div class="run-list">
+                {% assign running_posts = site.posts | where: "category", "Running" | limit: 4 %}
+                {% for post in running_posts %}
+                <div class="run-item">
+                    <div class="run-dist">{{ post.distance | default: "–" }} km</div>
+                    <div class="run-meta">
+                        <div class="run-name"><a href="{{ post.url }}">{{ post.title }}</a></div>
+                        <div class="run-pace">{{ post.pace | default: "" }}</div>
+                    </div>
+                    <div class="run-date">{{ post.date | date: "%d %b" }}</div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Now -->
+            <div class="section-head mt-3">
+                <h2>Now</h2>
+                <span class="section-head-tag">this week</span>
+                <a href="/now" class="section-link">full →</a>
+            </div>
+            <div style="font-size:0.88rem; color: var(--text-dim); line-height:1.7;">
+                <p>📖 Working through <em>Programming Rust</em> ch. 13 — iterators</p>
+                <p>🦀 100DaysOfCode: DSA in Rust (no AI for core logic)</p>
+                <p>🏃 Training for a half-marathon · long run Sundays</p>
+                <p>📡 Exploring remote Rust contracting opportunities</p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    // Calculate day number from start date
+    (function() {
+        const start = new Date('2026-03-16');
+        const today = new Date();
+        const diff = Math.floor((today - start) / (1000 * 60 * 60 * 24)) + 1;
+        const day = Math.max(1, Math.min(diff, 100));
+        const pct = day;
+
+        document.getElementById('dayCount').textContent = day;
+        document.getElementById('progressPct').textContent = pct + '%';
+        document.getElementById('progressBar').style.width = pct + '%';
+    })();
+</script>

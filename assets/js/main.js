@@ -1,38 +1,45 @@
-// Mobile menu toggle
-document.addEventListener('DOMContentLoaded', function() {
-    const menuToggle = document.getElementById('menuToggle');
-    const navMenu = document.getElementById('navMenu');
+document.addEventListener('DOMContentLoaded', function () {
 
-    if (menuToggle) {
-        menuToggle.addEventListener('click', function() {
-            navMenu.classList.toggle('active');
-            menuToggle.classList.toggle('active');
+    // ─── Mobile menu ───
+    const toggle = document.getElementById('menuToggle');
+    const menu   = document.getElementById('navMenu');
+    if (toggle && menu) {
+        toggle.addEventListener('click', function () {
+            menu.classList.toggle('active');
+            toggle.classList.toggle('active');
         });
     }
 
-    // Smooth scrolling
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
+    // ─── Reading progress bar ───
+    const bar = document.getElementById('readingProgress');
+    if (bar) {
+        window.addEventListener('scroll', function () {
+            const doc    = document.documentElement;
+            const scroll = doc.scrollTop || document.body.scrollTop;
+            const height = doc.scrollHeight - doc.clientHeight;
+            bar.style.width = (height > 0 ? (scroll / height) * 100 : 0) + '%';
+        }, { passive: true });
+    }
+
+    // ─── Highlight active nav link ───
+    const path  = window.location.pathname;
+    const links = document.querySelectorAll('.nav-menu a');
+    links.forEach(function (a) {
+        if (a.getAttribute('href') === path ||
+            (path.startsWith(a.getAttribute('href')) && a.getAttribute('href') !== '/')) {
+            a.classList.add('active');
+        }
+    });
+
+    // ─── Smooth scroll for anchor links ───
+    document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+        a.addEventListener('click', function (e) {
             const target = document.querySelector(this.getAttribute('href'));
             if (target) {
+                e.preventDefault();
                 target.scrollIntoView({ behavior: 'smooth' });
             }
         });
     });
 
-    // Reading progress bar
-    const progressBar = document.createElement('div');
-    progressBar.className = 'reading-progress';
-    document.body.appendChild(progressBar);
-
-    window.addEventListener('scroll', function() {
-        const windowHeight = window.innerHeight;
-        const documentHeight = document.documentElement.scrollHeight;
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const trackLength = documentHeight - windowHeight;
-        const progress = (scrollTop / trackLength) * 100;
-
-        progressBar.style.width = progress + '%';
-    });
 });
