@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Day 0: Taking Ownership"
+title: "Day 000: Taking Ownership"
 date: 2026-03-15
 category: Life
 tags: [100days, meta, planning, rust, running, health]
