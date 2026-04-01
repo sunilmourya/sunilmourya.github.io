@@ -5,12 +5,25 @@ layout: default
 <div class="container">
     <article class="post-wrap">
 
+        <!-- Back link by category -->
+        <div class="post-back">
+            {% if page.category == "Rust" or page.category == "C++" or page.category == "Backend" %}
+            <a href="/tech">← Tech</a>
+            {% elsif page.category == "Running" %}
+            <a href="/running">← Running</a>
+            {% else %}
+            <a href="/blog">← Writing</a>
+            {% endif %}
+        </div>
+
         <div class="post-tags">
             {% if page.category %}
             <span class="post-item-tag tag-{{ page.category | downcase | replace: '+', 'p' | replace: ' ', '' }}">{{ page.category }}</span>
             {% endif %}
             {% for tag in page.tags %}
+            {% unless tag == page.category %}
             <span class="post-item-tag tag-{{ tag | downcase }}">{{ tag }}</span>
+            {% endunless %}
             {% endfor %}
         </div>
 
@@ -19,7 +32,7 @@ layout: default
         <div class="post-meta-bar">
             <span>{{ page.date | date: "%d %b %Y" }}</span>
             {% if page.read_time %}<span>{{ page.read_time }} min read</span>{% endif %}
-            {% if page.day %}<span>Day {{ page.day }} / 100</span>{% endif %}
+            {% if page.category == "Running" and page.distance %}<span>{{ page.distance }} km{% if page.pace %} · {{ page.pace }}{% endif %}</span>{% endif %}
         </div>
 
         <div class="post-content">

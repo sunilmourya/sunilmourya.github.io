@@ -6,81 +6,58 @@ title: Home
 <!-- HERO -->
 <div class="container">
     <section class="hero">
-        <p class="hero-eyebrow">// 100 days · starting 16 mar 2026</p>
-        <h1>Rust. C++. Miles.<br><em>Taking ownership.</em></h1>
+        <p class="hero-eyebrow">// systems developer · rust · c++ · ludhiana, india</p>
+        <h1>12 years<br>close to <em>the metal.</em></h1>
         <p class="hero-sub">
-            Senior systems developer rebuilding life with ownership.
-
-            Handling imposter syndrome by building real systems and shipping real code.
-            Early mornings dedicated to running and fitness.
-
-            Consistency. No shortcuts. 100 days, logged honestly.
+            Senior systems developer. C++ since before it was modern.
+            Android platform engineering at Samsung. Automotive audio frameworks and FFI.
+            Now going deep on Rust. Writing it all down here.
         </p>
         <div class="hero-cta">
-            <a href="/100days" class="btn btn-primary">→ Follow the 100 days</a>
+            <a href="/tech" class="btn btn-primary">→ Technical writing</a>
             <a href="/about" class="btn btn-ghost">About Sunil</a>
         </div>
     </section>
-</div>
-
-<!-- 100 DAYS PROGRESS STRIP -->
-<div class="days-strip">
-    <div class="days-strip-inner">
-        <div>
-            <div class="days-big" id="dayCount">1</div>
-            <div class="days-label">of 100 days</div>
-        </div>
-
-        <div class="days-progress-track">
-            <div class="days-progress-meta">
-                <span>16 Mar 2026</span>
-                <span id="progressPct">1%</span>
-                <span>23 Jun 2026</span>
-            </div>
-            <div class="days-bar-bg">
-                <div class="days-bar-fill" id="progressBar" style="width: 1%"></div>
-            </div>
-        </div>
-
-        <div class="stat-pills">
-            <div class="stat-pill">
-                <span class="stat-pill-num rust" id="rustCount">0</span>
-                <span class="stat-pill-label">Rust hrs</span>
-            </div>
-            <div class="stat-pill">
-                <span class="stat-pill-num blue" id="cppCount">0</span>
-                <span class="stat-pill-label">C++ hrs</span>
-            </div>
-            <div class="stat-pill">
-                <span class="stat-pill-num green" id="kmCount">{{ site.data.stats.km_run }}</span>
-                <span class="stat-pill-label">km run</span>
-            </div>
-        </div>
-    </div>
 </div>
 
 <!-- CONTENT GRID -->
 <div class="container--wide">
     <div class="home-sections">
 
-        <!-- Recent Log Entries -->
+        <!-- Left: Recent Log -->
         <div>
-            <div class="section-head">
-                <h2>Recent Log</h2>
-                <span class="section-head-tag">all posts</span>
+
+            <!-- Featured / Latest post -->
+            {% assign latest = site.posts | first %}
+            {% if latest %}
+            <div class="featured-post">
+                <div class="featured-post-meta">
+                    <span class="post-item-tag tag-{{ latest.category | downcase | replace: '+', 'p' }}">{{ latest.category }}</span>
+                    <span class="featured-date">{{ latest.date | date: "%d %b %Y" }}</span>
+                </div>
+                <a href="{{ latest.url }}" class="featured-post-title">{{ latest.title }}</a>
+                {% if latest.excerpt %}
+                <p class="featured-post-excerpt">{{ latest.excerpt | truncatewords: 28 }}</p>
+                {% endif %}
+                <a href="{{ latest.url }}" class="featured-read-link">Read → </a>
+            </div>
+            {% endif %}
+
+            <div class="section-head mt-2">
+                <h2>Recent Writing</h2>
+                <span class="section-head-tag">log</span>
                 <a href="/blog" class="section-link">all entries →</a>
             </div>
             <div class="post-list">
-                {% for post in site.posts limit:6 %}
+                {% for post in site.posts limit:7 offset:1 %}
                 <div class="post-item">
                     <div class="post-item-date">{{ post.date | date: "%d %b" }}</div>
                     <div class="post-item-body">
                         <div>
                             <span class="post-item-tag tag-{{ post.category | downcase | replace: '+', 'p' | replace: ' ', '' }}">{{ post.category }}</span>
-                            {% if post.day %}<span class="post-item-tag tag-100days">Day {{ post.day }}</span>{% endif %}
                         </div>
                         <a href="{{ post.url }}" class="post-item-title">{{ post.title }}</a>
-                        {% if post.excerpt %}<p class="post-item-excerpt">{{ post.excerpt | truncatewords: 18 }}</p>{% endif %}
+                        {% if post.excerpt %}<p class="post-item-excerpt">{{ post.excerpt | truncatewords: 15 }}</p>{% endif %}
                     </div>
                 </div>
                 {% endfor %}
@@ -110,34 +87,39 @@ title: Home
                 {% endfor %}
             </div>
 
+            <!-- Stats -->
+            <div class="section-head mt-3">
+                <h2>Stats</h2>
+                <span class="section-head-tag">running</span>
+            </div>
+            <div class="stats-row">
+                <div class="stat-block">
+                    <div class="stat-block-num green">{{ site.data.stats.km_run }}</div>
+                    <div class="stat-block-label">km run</div>
+                </div>
+                <div class="stat-block">
+                    <div class="stat-block-num rust">{{ site.data.stats.rust_hours }}</div>
+                    <div class="stat-block-label">rust hrs</div>
+                </div>
+                <div class="stat-block">
+                    <div class="stat-block-num blue">{{ site.data.stats.cpp_hours }}</div>
+                    <div class="stat-block-label">c++ hrs</div>
+                </div>
+            </div>
+
             <!-- Now -->
             <div class="section-head mt-3">
                 <h2>Now</h2>
                 <span class="section-head-tag">this week</span>
                 <a href="/now" class="section-link">full →</a>
             </div>
-            <div style="font-size:0.88rem; color: var(--text-dim); line-height:1.7;">
-                <p>📖 Working through <em>Programming Rust</em> ch. 13 — iterators</p>
-                <p>🦀 100DaysOfCode: DSA in Rust (no AI for core logic)</p>
-                <p>🏃 Training for a half-marathon · long run Sundays</p>
-                <p>📡 Exploring remote Rust contracting opportunities</p>
+            <div style="font-size:0.88rem; color: var(--text-dim); line-height:1.8;">
+                <p>📖 <em>Programming Rust</em> ch. 13 — iterators</p>
+                <p>🦀 DSA in Rust, no AI for core logic</p>
+                <p>🏃 Training for marathon · long runs Sunday</p>
+                <p>📡 Targeting remote Rust contracting roles</p>
             </div>
 
         </div>
     </div>
 </div>
-
-<script>
-    // Calculate day number from start date
-    (function() {
-        const start = new Date('2026-03-16');
-        const today = new Date();
-        const diff = Math.floor((today - start) / (1000 * 60 * 60 * 24)) + 1;
-        const day = Math.max(1, Math.min(diff, 100));
-        const pct = day;
-
-        document.getElementById('dayCount').textContent = day;
-        document.getElementById('progressPct').textContent = pct + '%';
-        document.getElementById('progressBar').style.width = pct + '%';
-    })();
-</script>

@@ -1,24 +1,38 @@
 ---
 layout: default
-title: Life Journey
+title: Writing
 ---
 <div class="container">
   <div class="hero">
-    <p class="hero-eyebrow">// The other compiler!</p>
-    <h1>The human <em>stack</em></h1>
+    <p class="hero-eyebrow">// all writing</p>
+    <h1>The full <em>log</em></h1>
+    <p class="hero-sub">Everything — Rust, C++, backend, running, life. Honest notes, no polish.</p>
   </div>
-  <div class="post-list">
-    {% for post in site.posts %}
-    {% if post.category == "Life" %}
-    <div class="post-item">
-      <div class="post-item-date">{{ post.date | date: "%d %b" }}</div>
-      <div class="post-item-body">
-        {% if post.day %}<span class="post-item-tag tag-100days">Day {{ post.day }}</span>{% endif %}
-        <a href="{{ post.url }}" class="post-item-title">{{ post.title }}</a>
-        <p class="post-item-excerpt">{{ post.excerpt | truncatewords: 18 }}</p>
+
+  {% assign posts_by_year = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
+  {% for year_group in posts_by_year %}
+  <div class="archive-year-block">
+    <div class="archive-year-label">{{ year_group.name }}</div>
+    <div class="post-list">
+      {% for post in year_group.items %}
+      <div class="post-item">
+        <div class="post-item-date">{{ post.date | date: "%d %b" }}</div>
+        <div class="post-item-body">
+          <div>
+            <span class="post-item-tag tag-{{ post.category | downcase | replace: '+', 'p' | replace: ' ', '' }}">{{ post.category }}</span>
+          </div>
+          <a href="{{ post.url }}" class="post-item-title">{{ post.title }}</a>
+          {% if post.excerpt %}<p class="post-item-excerpt">{{ post.excerpt | truncatewords: 15 }}</p>{% endif %}
+        </div>
       </div>
+      {% endfor %}
     </div>
-    {% endif %}
-    {% endfor %}
   </div>
+  {% endfor %}
+
+  {% if site.posts.size == 0 %}
+  <p style="color:var(--text-faint); font-family:var(--font-mono); font-size:0.82rem; padding: 3rem 0;">
+    No posts yet. First one coming soon.
+  </p>
+  {% endif %}
 </div>

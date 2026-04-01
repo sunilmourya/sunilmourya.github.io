@@ -1,24 +1,69 @@
 ---
 layout: default
-title: Running Journey
+title: Running
 ---
 <div class="container">
   <div class="hero">
-    <p class="hero-eyebrow">// running journey</p>
+    <p class="hero-eyebrow">// running log</p>
     <h1>On the <em>road</em></h1>
+    <p class="hero-sub">
+      4x/week. Easy, tempo, medium, long. Building toward a full marathon — September 2026.
+      Running as a forcing function for the discipline that transfers to code.
+    </p>
   </div>
-  <div class="post-list">
-    {% for post in site.posts %}
-    {% if post.category == "Running" %}
-    <div class="post-item">
-      <div class="post-item-date">{{ post.date | date: "%d %b" }}</div>
-      <div class="post-item-body">
-        {% if post.day %}<span class="post-item-tag tag-100days">Day {{ post.day }}</span>{% endif %}
-        <a href="{{ post.url }}" class="post-item-title">{{ post.title }}</a>
-        <p class="post-item-excerpt">{{ post.excerpt | truncatewords: 18 }}</p>
-      </div>
+
+  <!-- Stats bar -->
+  <div class="run-stats-bar">
+    <div class="run-stat-item">
+      <div class="run-stat-num">{{ site.data.stats.km_run }}</div>
+      <div class="run-stat-label">km logged</div>
     </div>
-    {% endif %}
+    <div class="run-stat-divider"></div>
+    <div class="run-stat-item">
+      <div class="run-stat-num">42.2</div>
+      <div class="run-stat-label">km goal</div>
+    </div>
+    <div class="run-stat-divider"></div>
+    <div class="run-stat-item">
+      <div class="run-stat-num">Sep '26</div>
+      <div class="run-stat-label">race day</div>
+    </div>
+    <div class="run-stat-divider"></div>
+    <div class="run-stat-item">
+      <div class="run-stat-num">4×</div>
+      <div class="run-stat-label">runs / week</div>
+    </div>
+  </div>
+
+  <!-- Run list -->
+  <div class="section-head" style="margin-top:2.5rem;">
+    <h2>All Runs</h2>
+    <span class="section-head-tag">chronological</span>
+  </div>
+
+  <div class="run-log-list">
+    {% assign running_posts = site.posts | where: "category", "Running" %}
+    {% for post in running_posts %}
+    <a href="{{ post.url }}" class="run-log-item">
+      <div class="run-log-left">
+        <div class="run-log-dist">{{ post.distance | default: "–" }}<span class="run-log-unit"> km</span></div>
+        <div class="run-log-date">{{ post.date | date: "%d %b %Y" }}</div>
+      </div>
+      <div class="run-log-center">
+        <div class="run-log-title">{{ post.title }}</div>
+        {% if post.excerpt %}<div class="run-log-excerpt">{{ post.excerpt | truncatewords: 12 }}</div>{% endif %}
+      </div>
+      <div class="run-log-right">
+        {% if post.pace %}<div class="run-log-pace">{{ post.pace }}</div><div class="run-log-pace-label">avg pace</div>{% endif %}
+      </div>
+    </a>
     {% endfor %}
   </div>
+
+  {% assign running_posts = site.posts | where: "category", "Running" %}
+  {% if running_posts.size == 0 %}
+  <p style="color:var(--text-faint); font-family:var(--font-mono); font-size:0.82rem; padding: 3rem 0;">
+    First run log coming soon.
+  </p>
+  {% endif %}
 </div>
